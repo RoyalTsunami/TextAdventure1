@@ -1,0 +1,74 @@
+def play_game():
+    rope = False
+    key = False
+
+    def get_user_choice(prompt, options):
+        while True:
+            choice = input(prompt).lower().strip()
+            if choice in options:
+                return choice
+            print("Invalid choice. Try again.")
+
+    def show_intro_room():
+        nonlocal rope
+        print(
+            "You look around the room to see cobwebs embracing the corners and dusty books resting on sagging shelves.")
+        print("Sunlight filters through cracked windows, illuminating motes dancing in the air.")
+
+        if not rope:
+            print("In the dimmest corner, a bundle of rope catches your eye.")
+            choice = get_user_choice("Would you like to pick up the rope? (yes/no) ", ["yes", "no"])
+
+            if choice == "yes":
+                rope = True
+                print("You pick up the rope and left the room.")
+                show_hallway_1()
+            elif choice == "no":
+                print("What could a rope do anyways? You ignored it and left the room.")
+                show_hallway_1()
+
+    # ... (continue with other functions)
+
+    def show_exit_1():
+        nonlocal key
+        print("You reached out to open the door but found it locked.")
+        if key:
+            choice = get_user_choice("You remember that you picked up a key.\nWould you like to use it? (yes/no) ",
+                                     ["yes", "no"])
+            if choice == "yes":
+                print("You used the key and it opened the lock.")
+                print("It reveals a path to an unfamiliar forest. But that's not the point here.")
+                print("You have finally escaped this place! You win!")
+            else:
+                print(
+                    "Curiosity kills the cat, you thought.\nWho knows what weird traps may be behind this door, am I right?")
+                show_hallway_2()
+        else:
+            print("Maybe there is a key somewhere here that could open the door.")
+            show_hallway_2()
+
+    # ... (continue with other functions)
+
+    # Starting point of the game
+    def show_hallway_1():
+        print(
+            "You find yourself at the beginning of a hallway.\nThere are two doors, one of which leads to the room you woke up in.")
+        choice = get_user_choice(
+            "Would you like to go back to where you started, explore the other room, or continue down the hallway? (back/explore/continue) ",
+            ["back", "explore", "continue"])
+
+        if choice == "back":
+            show_intro_room()
+        elif choice == "explore":
+            show_next_room()
+        elif choice == "continue":
+            show_hallway_2()
+
+    # ... (continue with other functions)
+
+    # Entry point of the game
+    show_hallway_1()
+
+
+# Call the main function to start the game
+play_game()
